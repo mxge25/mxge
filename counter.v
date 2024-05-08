@@ -1,16 +1,17 @@
-`timescale 1ns / 1ps
+module counter (
+    input CLK,
+    output reg [2:0] tcounts
+);
 
-module counter(
-    input  CLK,
-	output reg [2:0] tcounts
-    );
-    
-    always @ (posedge CLK)
-            begin
-                if(tcounts==3'b111)
-                    tcounts = 3'b000;
-                else
-                    tcounts = tcounts + 3'b001;
-            end
-            
+    // Initialize tcounts to 000
+    initial tcounts = 3'b000;
+
+    always @(posedge CLK) begin
+        if (tcounts == 3'b111) begin
+            tcounts <= 3'b000;
+        end else begin
+            tcounts <= tcounts + 3'b001; // Increment tcounts
+        end
+    end
+
 endmodule
